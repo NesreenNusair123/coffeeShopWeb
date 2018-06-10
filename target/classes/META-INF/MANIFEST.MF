@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: coffeeShop
+Implementation-Version: 2.0.0.RELEASE
+Built-By: nesre
+Implementation-Vendor-Id: edu.mum
+Build-Jdk: 1.8.0_171
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/coffeeShopWeb
+Created-By: Maven Integration for Eclipse
+

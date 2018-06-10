@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>WAA Coffee Shop</title>
+</head>
+<body>
+	<div th:fragment="imports">
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/site.css" />
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="nav">
+  <a class="navbar-brand" href="/">Global Cafe</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav navbar-right" sec:authorize="isAnonymous()">
+      <li class="nav-item"><a class="nav-link" href="/account/register">Register</a></li>
+      <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+    </ul>
+    
+    <ul class="navbar-nav mr-auto" sec:authorize="isAuthenticated()">
+		<li class="nav-item"><a class="nav-link" href="/cart/">Cart</a></li>
+		<li class="nav-item"><a class="nav-link" href="/orders/">Order history</a></li>
+		<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"><a class="nav-link" href="/products/">Products</a></li>
+		<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"><a class="nav-link" href="/people/">People</a></li>
+    </ul>
+    <ul class="navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+      <li class="nav-item"><a class="nav-link" href="/account/update">Update your profile</a></li>
+      <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+	<main class="container">
+	
+
+	
+	<div class="row">
+		<div class="col-md-3" th:each="prod: ${products}">
+			<h3 th:text="${prod?.productName}">Name</h3>
+			<p th:text="${prod?.productType}">Type</p>
+			<p th:text="${prod?.description}">Description</p>
+			<p class="price" th:text="${#numbers.formatDecimal(prod?.price, 0, 'COMMA', 2, 'POINT')}">00.00</p>
+			<a th:href="@{/cart/add/__${prod?.id}__}">Add to cart</a>
+		</div>
+	</div>
+	
+	</main>
+	
+	<div class="footer">
+ 	 <p>2018 © All Rights Reserved For Global Cafe</p>
+	</div>
+	
+	
+</body>
+</html>

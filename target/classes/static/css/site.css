@@ -1,0 +1,69 @@
+main {
+	padding-top: 15px;
+}
+
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #5F3002;
+    color: white;
+    text-align: center;
+    padding-top: .4em;
+    
+}
+
+	
+	
+
+.price {
+	color: #25AF48;
+	font-weight: bold;
+}
+.bg-dark
+{
+	background-color: #5F3002!important;
+}
+
+.btn-success:hover
+{
+background-color: 	#954B00;
+}
+.btn-success
+{
+background-color: 	#5F3008;
+}
+
+body
+{
+	font-size: 1rem;
+	font-weight: bold;
+	
+	
+}
+
+
+.container:after
+{
+    content : "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("./Coffee.jpg"); 
+    width: 100%;
+    height: 100%;
+    opacity : 0.05;
+    z-index: -1;
+    padding-bottom: 70em;
+}
+
+
+
+.h1, h1
+{
+	font-size: 1.8rem;
+}

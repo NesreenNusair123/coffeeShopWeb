@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Update person</title>
+</head>
+<body>
+	<div th:fragment="imports">
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/site.css" />
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="nav">
+  <a class="navbar-brand" href="/">Global Cafe</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav navbar-right" sec:authorize="isAnonymous()">
+      <li class="nav-item"><a class="nav-link" href="/account/register">Register</a></li>
+      <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+    </ul>
+    
+    <ul class="navbar-nav mr-auto" sec:authorize="isAuthenticated()">
+		<li class="nav-item"><a class="nav-link" href="/cart/">Cart</a></li>
+		<li class="nav-item"><a class="nav-link" href="/orders/">Order history</a></li>
+		<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"><a class="nav-link" href="/products/">Products</a></li>
+		<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"><a class="nav-link" href="/people/">People</a></li>
+    </ul>
+    <ul class="navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+      <li class="nav-item"><a class="nav-link" href="/account/update">Update your profile</a></li>
+      <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+	<main class="container">
+	
+	<h1>Update person:</h1>
+	
+	<form th:action="@{/people/edit/__${person.id}__}" th:object="${person}" method="post">
+		
+
+<div th:fragment="form">
+	<div class="form-group">
+		<label for="firstName">First Name</label>
+		<input type="text" class="form-control" placeholder="First name" th:field="*{firstName}" th:value="${person?.firstName}">
+		<small class="form-text text-muted" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small>
+	</div>
+
+	<div class="form-group">
+		<label for="lastName">Last Name</label>
+		<input type="text" class="form-control" placeholder="Last name" th:field="*{lastName}" th:value="${person?.lastName}">
+		<small class="form-text text-muted" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
+	</div>
+
+	<div class="form-group">
+		<label for="email">Email</label>
+		<input type="email" class="form-control" placeholder="Email" th:field="*{email}" th:value="${person?.email}">
+		<small class="form-text text-muted" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+	</div>
+
+	<div class="form-group">
+		<label for="password">Password</label>
+		<input type="password" class="form-control" placeholder="Password" th:field="*{password}" th:value="${person?.password}">
+		<small class="form-text text-muted" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+	</div>
+
+	<div class="form-group">
+		<label for="phone">Phone</label>
+		<input type="phone" class="form-control" placeholder="Phone" th:field="*{phone}" th:value="${person?.phone}">
+		<small class="form-text text-muted" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+	</div>
+
+	<fieldset>
+		<legend>Address</legend>
+
+		<div class="form-group">
+			<label for="city">City</label>
+			<input type="text" class="form-control" placeholder="City" th:field="*{address.city}" th:value="${person?.address?.city}">
+			<small class="form-text text-muted" th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></small>
+		</div>
+
+		<div class="form-group">
+			<label for="state">State</label>
+			<input type="text" class="form-control" placeholder="State" th:field="*{address.state}" th:value="${person?.address?.state}">
+			<small class="form-text text-muted" th:if="${#fields.hasErrors('address.state')}" th:errors="*{address.state}"></small>
+		</div>
+
+		<div class="form-group">
+			<label for="country">Country</label>
+			<input type="text" class="form-control" placeholder="Country" th:field="*{address.country}" th:value="${person?.address?.country}">
+			<small class="form-text text-muted" th:if="${#fields.hasErrors('address.country')}" th:errors="*{address.country}"></small>
+		</div>
+
+		<div class="form-group">
+			<label for="zipcode">Zipcode</label>
+			<input type="text" class="form-control" placeholder="Zipcode" th:field="*{address.zipcode}" th:value="${person?.address?.zipcode}">
+			<small class="form-text text-muted" th:if="${#fields.hasErrors('address.zipcode')}" th:errors="*{address.zipcode}"></small>
+		</div>
+	</fieldset>
+</div>
+
+		
+		<div class="form-check">
+			<input type="checkbox" class="form-check-input" th:field="*{admin}" th:value="${person?.admin}">
+			<label class="form-check-label" for="admin">Is admin?</label>
+		</div>
+		<div class="form-check">
+			<input type="checkbox" class="form-check-input" th:field="*{enable}" th:value="${person?.enable}">
+			<label class="form-check-label" for="enable">Is enabled?</label>
+		</div>
+		
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+	
+	</main>
+	<div class="footer">
+ 	 <p>2018 © All Rights Reserved For Global Cafe</p>
+	</div>
+</body>
+</html>
